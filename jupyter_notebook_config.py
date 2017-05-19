@@ -579,6 +579,5 @@
 #  
 #  By default, all installed kernels are allowed.
 #c.KernelSpecManager.whitelist = set()
-c.NotebookApp.password = u'sha1:e6afec0340a7:347db2834535c75054f16d10e4aa2569f4e97024'
 c.NotebookApp.ip = '*'
 c.NotebookApp.open_browser = False
