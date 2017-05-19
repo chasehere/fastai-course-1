@@ -1,4 +1,36 @@
-# Docker for [fast.ai](http://course.fast.ai) Course 1
+# Docker for Deep Learning
+A jupyter environment for Deep Learning on Azure.
+
+Runs a Jupyter notebook on port 8888.
+
+Uses CPUs by default and NVIDIA GPUs when run with [nvidia-docker](https://github.com/NVIDIA/nvidia-docker).
+
+This container comes with: 
+* All notebooks from https://github.com/fastai/courses/tree/master/deeplearning1/nbs
+* Python 3.5
+* Conda
+* Theano
+* Keras
+* PIL
+* Jupyter
+* bcolz
+* kaggle-cli
+* ...all other libraries used in the [fast.ai course](http://course.fast.ai).
+
+## Setting up the GPU
+Install the latest CUDA drivers.  This step may require some hacking.
+
+## GPU Usage
+```
+nvidia-docker run -it --rm -p 8888:8888 -v /home/<user>/repos/:/home/docker/repos/ -v /mnt/azurefs:/mnt/azurefs deeprig/fastai-course-1
+```
+
+## CPU Usage
+Change `nvidia-docker` to `docker`. 
+
+
+
+# ORIGINAL INSTRUCTIONS - Docker for [fast.ai](http://course.fast.ai) Course 1
 A Jupyter environment for fast.ai's Deep Learning MOOC at http://course.fast.ai.
 
 Runs a Jupyter notebook on port 8888 with the default password used in the course ('dl_course').
