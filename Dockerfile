@@ -2,8 +2,8 @@ FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 
 MAINTAINER Anurag Goel <deeprig@anur.ag>
 
-ARG PYTHON_VERSION=2.7
-ARG CONDA_PYTHON_VERSION=2
+ARG PYTHON_VERSION=3.5
+ARG CONDA_PYTHON_VERSION=3
 ARG CONDA_VERSION=4.2.12
 ARG CONDA_DIR=/opt/conda
 ARG TINI_VERSION=v0.13.2
@@ -62,7 +62,16 @@ EXPOSE 8888
 
 # Clone fast.ai source
 RUN git clone -q https://github.com/fastai/courses.git fastai-courses
-WORKDIR /home/$USERNAME/fastai-courses/deeplearning1/nbs
+#WORKDIR /home/$USERNAME/fastai-courses/deeplearning1/nbs
+
+USER root
+RUN chown docker:users /home/$USERNAME/.jupyter
+USER $USERNAME
+
+RUN pip install jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
+    pip install jupyter_nbextensions_configurator && \
+    jupyter nbextensions_configurator enable --user
 
 ENTRYPOINT ["/tini", "--"]
-CMD jupyter notebook --ip=0.0.0.0 --port=8888
+CMD jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
